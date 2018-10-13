@@ -23,7 +23,7 @@ namespace Gap.Domain.Customer.Persistence.EntityConfigurations
                 .IsRequired(false);
 
             builder.Property(b => b.Email)
-                .IsRequired();
+                .IsRequired(false);
         }
     }
 }

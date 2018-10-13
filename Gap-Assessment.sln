@@ -27,13 +27,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Customer", "Customer", "{D8
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Insurance", "Insurance", "{E1679C7A-C5DD-4F51-806D-C5A5B7EEADB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gap.Domain.Customer", "src\Domain\Customer\Gap.Domain.Customer\Gap.Domain.Customer.csproj", "{833A5FEC-FAA9-4FC4-BC18-290CAF158228}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gap.Domain.Customer", "src\Domain\Customer\Gap.Domain.Customer\Gap.Domain.Customer.csproj", "{833A5FEC-FAA9-4FC4-BC18-290CAF158228}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gap.Domain.Customer.UnitTest", "src\Domain\Customer\Gap.Domain.Customer.UnitTest\Gap.Domain.Customer.UnitTest.csproj", "{763AE255-6617-4208-B11A-94B67E163485}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gap.Domain.Customer.UnitTest", "src\Domain\Customer\Gap.Domain.Customer.UnitTest\Gap.Domain.Customer.UnitTest.csproj", "{763AE255-6617-4208-B11A-94B67E163485}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gap.Domain.Insurance", "src\Domain\Insurance\Gap.Domain.Insurance\Gap.Domain.Insurance.csproj", "{32E3B1B8-3DBC-4517-8CB1-F7AFE0CA5D24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gap.Domain.Insurance", "src\Domain\Insurance\Gap.Domain.Insurance\Gap.Domain.Insurance.csproj", "{32E3B1B8-3DBC-4517-8CB1-F7AFE0CA5D24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gap.Domain.Insurance.UnitTest", "src\Domain\Insurance\Gap.Domain.Insurance.UnitTest\Gap.Domain.Insurance.UnitTest.csproj", "{71A20B4E-EB1D-425C-95D0-595145835EFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gap.Domain.Insurance.UnitTest", "src\Domain\Insurance\Gap.Domain.Insurance.UnitTest\Gap.Domain.Insurance.UnitTest.csproj", "{71A20B4E-EB1D-425C-95D0-595145835EFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
