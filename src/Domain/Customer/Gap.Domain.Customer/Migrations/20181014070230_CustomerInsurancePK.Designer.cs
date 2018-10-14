@@ -12,9 +12,10 @@ using System;
 namespace Gap.Domain.Customer.Migrations
 {
     [DbContext(typeof(CustomerContext))]
-    partial class CustomerContextModelSnapshot : ModelSnapshot
+    [Migration("20181014070230_CustomerInsurancePK")]
+    partial class CustomerInsurancePK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,10 +51,6 @@ namespace Gap.Domain.Customer.Migrations
                         .HasAnnotation("SqlServer:HiLoSequenceName", "customerinsurance_seq")
                         .HasAnnotation("SqlServer:HiLoSequenceSchema", "Customer")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.SequenceHiLo);
-
-                    b.Property<DateTime>("AssigningDate");
-
-                    b.Property<DateTime?>("CancellationDate");
 
                     b.Property<int>("CustomerId");
 

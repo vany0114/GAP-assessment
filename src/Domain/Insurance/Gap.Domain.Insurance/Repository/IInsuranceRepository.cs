@@ -13,5 +13,7 @@ namespace Gap.Domain.Insurance.Repository
         Task<int> AddInsuranceAsync(Model.Insurance insurance);
 
         void UpdateInsurance(Model.Insurance insurance);
+
+        void DeleteInsurance(Model.Insurance insurance);
     }
 }

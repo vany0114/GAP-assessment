@@ -25,6 +25,11 @@ namespace Gap.Infrastructure.DDD
 
         public List<INotification> DomainEvents => _domainEvents;
 
+        public void ClearDomainEvents()
+        {
+            _domainEvents?.Clear();
+        }
+
         public void AddDomainEvent(INotification eventItem)
         {
             _domainEvents = _domainEvents ?? new List<INotification>();

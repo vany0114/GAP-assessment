@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using AutoMapper;
-using Gap.Domain.Customer.Repository;
 using Gap.Insurance.API.Application.Exceptions;
+using Gap.Insurance.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using ViewModel = Gap.Insurance.API.Application.Model;
 
@@ -12,13 +11,11 @@ namespace Gap.Insurance.API.Controllers
     [Route("api/v1/[controller]")]
     public class CustomerController : Controller
     {
-        private readonly IMapper _mapper;
-        private readonly ICustomerRepository _customerRepository;
+        private readonly ICustomerService _customerService;
 
-        public CustomerController(ICustomerRepository customerRepository, IMapper mapper)
+        public CustomerController(ICustomerService customerService)
         {
-            _mapper = mapper ?? throw new CustomerApplicationArgumentNullException(nameof(mapper));
-            _customerRepository = customerRepository ?? throw new CustomerApplicationArgumentNullException(nameof(customerRepository));
+            _customerService = customerService ?? throw new CustomerApplicationArgumentNullException(nameof(customerService));
         }
 
         /// <summary>
@@ -34,13 +31,12 @@ namespace Gap.Insurance.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> GetCustomers()
         {
-            var customers = await _customerRepository.GetCustomersAsync();
-            var customersViewModel = _mapper.Map<IEnumerable<ViewModel.Customer>>(customers);
+            var customers = await _customerService.GetCustomersAsync();
 
-            if (customersViewModel == null)
+            if (customers == null)
                 return NotFound();
 
-            return Ok(customersViewModel);
+            return Ok(customers);
         }
 
         /// <summary>
@@ -57,13 +53,44 @@ namespace Gap.Insurance.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> GetCustomer(int customerId)
         {
-            var customer = await _customerRepository.GetCustomerAsync(customerId);
-            var customersViewModel = _mapper.Map<ViewModel.Customer>(customer);
+            var customer = await _customerService.GetCustomerAsync(customerId);
 
-            if (customersViewModel == null)
+            if (customer == null)
                 return NotFound();
 
-            return Ok(customersViewModel);
+            return Ok(customer);
+        }
+
+        /// <summary>
+        /// Add an insurance to the given customer.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <response code="200"></response>
+        [Route("assigninsurance")]
+        [HttpPut]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> AssignInsurance([FromBody]ViewModel.AssignCancelInsuranceRequest request)
+        {
+            await _customerService.AssignInsurance(request);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Cancel an insurance to the given customer.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <response code="200"></response>
+        [Route("cancelinsurance")]
+        [HttpPut]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> CancelInsurance([FromBody]ViewModel.AssignCancelInsuranceRequest request)
+        {
+            await _customerService.CancelInsurance(request);
+            return Ok();
         }
     }
 }

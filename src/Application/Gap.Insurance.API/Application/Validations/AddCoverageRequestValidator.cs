@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 using Gap.Insurance.API.Application.Model;
 
 namespace Gap.Insurance.API.Application.Validations

@@ -9,5 +9,9 @@
         public string Email { get; set; }
 
         public string PhoneNumber { get; set; }
+
+        public int ActiveInsurances { get; set; }
+
+        public int CancelledInsurances { get; set; }
     }
 }

@@ -28,10 +28,11 @@ namespace Gap.Domain.Insurance.Persistence.EntityConfigurations
             builder.Property(b => b.CoveragePeriod)
                 .IsRequired();
 
-            builder.HasIndex(x => x.CreationDate)
-                .IsUnique();
+            builder.Property(b => b.HasActiveCustomers)
+                .HasDefaultValue(false)
+                .IsRequired();
 
-            builder.HasIndex(x => x.CustomerId)
+            builder.HasIndex(x => x.CreationDate)
                 .IsUnique();
 
             builder.HasIndex(x => x.Description)

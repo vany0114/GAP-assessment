@@ -9,5 +9,7 @@ namespace Gap.Insurance.API.Services
         Task<int> CreateInsurance(Application.Model.CreateInsuranceRequest insuranceRequest);
 
         Task AddCoverageToInsurance(Application.Model.AddCoverageRequest request);
+
+        Task DeleteInsurance(Application.Model.DeleteInsuranceRequest request);
     }
 }

@@ -15,7 +15,7 @@ namespace Gap.Domain.Insurance.UnitTest
         {
             var exception = Assert.Throws<InsuranceDomainException>(() =>
             {
-                var insurance = new Model.Insurance(string.Empty, null, DateTime.Now, 0, 0, RiskType.High, 0);
+                var insurance = new Model.Insurance(string.Empty, null, DateTime.Now, 0, 0, RiskType.High);
             });
 
             Assert.IsInstanceOf<InsuranceDomainException>(exception);
@@ -28,7 +28,7 @@ namespace Gap.Domain.Insurance.UnitTest
         {
             var exception = Assert.Throws<InsuranceDomainException>(() =>
             {
-                var insurance = new Model.Insurance("test", null, DateTime.Now.AddDays(-1), 0, 0, RiskType.High, 0);
+                var insurance = new Model.Insurance("test", null, DateTime.Now.AddDays(-1), 0, 0, RiskType.High);
             });
 
             Assert.IsInstanceOf<InsuranceDomainException>(exception);
@@ -41,7 +41,7 @@ namespace Gap.Domain.Insurance.UnitTest
         {
             var exception = Assert.Throws<InsuranceDomainException>(() =>
             {
-                var insurance = new Model.Insurance("test", null, DateTime.Now.AddDays(30), 0, 0, RiskType.High, 0);
+                var insurance = new Model.Insurance("test", null, DateTime.Now.AddDays(30), 0, 0, RiskType.High);
             });
 
             Assert.IsInstanceOf<InsuranceDomainException>(exception);
@@ -54,7 +54,7 @@ namespace Gap.Domain.Insurance.UnitTest
         {
             var exception = Assert.Throws<InsuranceDomainException>(() =>
             {
-                var insurance = new Model.Insurance("test", null, DateTime.Now.AddDays(30), 5, 0, RiskType.High, 0);
+                var insurance = new Model.Insurance("test", null, DateTime.Now.AddDays(30), 5, 0, RiskType.High);
             });
 
             Assert.IsInstanceOf<InsuranceDomainException>(exception);
@@ -63,29 +63,15 @@ namespace Gap.Domain.Insurance.UnitTest
 
         [Test]
         [Category("Creation")]
-        public void Should_Fails_Due_To_CustomerId_Is_Invalid()
-        {
-            var exception = Assert.Throws<InsuranceDomainException>(() =>
-            {
-                var insurance = new Model.Insurance("test", null, DateTime.Now.AddDays(30), 5, 50000, RiskType.High, 0);
-            });
-
-            Assert.IsInstanceOf<InsuranceDomainException>(exception);
-            Assert.AreEqual(exception.Message, "customerId is required.");
-        }
-
-        [Test]
-        [Category("Creation")]
         public void Should_Create_The_Insurance()
         {
-            var insurance = new Model.Insurance("test", null, DateTime.Now.AddDays(30), 5, 50000, RiskType.High, 1);
+            var insurance = new Model.Insurance("test", null, DateTime.Now.AddDays(30), 5, 50000, RiskType.High);
 
             Assert.IsInstanceOf<Model.Insurance>(insurance);
             Assert.AreEqual(insurance.Name, "test");
             Assert.AreEqual(insurance.CoveragePeriod, 5);
             Assert.AreEqual(insurance.Cost, 50000);
             Assert.AreEqual(insurance.Risk, RiskType.High);
-            Assert.AreEqual(insurance.CustomerId, 1);
             Assert.IsNull(insurance.Description);
         }
 
@@ -130,7 +116,7 @@ namespace Gap.Domain.Insurance.UnitTest
         public void Should_Fails_When_The_Risk_Is_High_And_Exceed_50_Percentage()
         {
             // we need to mock the id since that value is only generated through the DB
-            var insurance = new Mock<Model.Insurance>(MockBehavior.Strict, "test", null, DateTime.Now.AddDays(30), 5, 50000, RiskType.High, 1);
+            var insurance = new Mock<Model.Insurance>(MockBehavior.Strict, "test", null, DateTime.Now.AddDays(30), 5, 50000, RiskType.High);
             insurance.Setup(x => x.Id).Returns(1);
 
             insurance.Object.AddCoverage(1, 30);

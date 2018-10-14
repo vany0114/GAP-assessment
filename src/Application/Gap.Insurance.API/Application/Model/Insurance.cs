@@ -21,8 +21,6 @@ namespace Gap.Insurance.API.Application.Model
 
         public RiskType Risk { get; set; }
 
-        public Customer Customer { get; set; }
-
         public IList<InsuranceCoverage> Coverages { get; set; }
     }
 

@@ -12,9 +12,10 @@ using System;
 namespace Gap.Domain.Insurance.Migrations
 {
     [DbContext(typeof(InsuranceContext))]
-    partial class InsuranceContextModelSnapshot : ModelSnapshot
+    [Migration("20181014052000_DropClientId")]
+    partial class DropClientId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,10 +55,6 @@ namespace Gap.Domain.Insurance.Migrations
                     b.Property<DateTime>("CreationDate");
 
                     b.Property<string>("Description");
-
-                    b.Property<bool>("HasActiveCustomers")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(false);
 
                     b.Property<string>("Name")
                         .IsRequired();

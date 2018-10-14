@@ -18,7 +18,5 @@ namespace Gap.Insurance.API.Application.Model
         public double Cost { get; set; }
 
         public RiskType Risk { get; set; }
-
-        public int CustomerId { get; set; }
     }
 }

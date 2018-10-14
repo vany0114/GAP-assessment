@@ -20,12 +20,10 @@ namespace Gap.Insurance.API.Application.Mapping
                     x.StartDate,
                     x.CoveragePeriod,
                     x.Cost,
-                    (RiskType) (int) x.Risk,
-                    x.Customer.Id
+                    (RiskType) (int) x.Risk
                 ));
 
-            CreateMap<ViewModel.CreateInsuranceRequest, ViewModel.Insurance>()
-                .AfterMap((request, insurance) => insurance.Customer = new ViewModel.Customer { Id = request.CustomerId });
+            CreateMap<ViewModel.CreateInsuranceRequest, ViewModel.Insurance>();
         }
     }
 }

@@ -41,20 +41,36 @@ namespace Gap.Insurance.API.Controllers
         }
 
         /// <summary>
-        /// Creates a new invoice.
+        /// Creates a new insurance.
         /// </summary>
         /// <param name="request"></param>
-        /// <returns>Returns the newly created invoice identifier.</returns>
+        /// <returns>Returns the newly created insurance identifier.</returns>
         /// <response code="201">Returns the newly created trip identifier.</response>
         [Route("create")]
         [HttpPost]
         [ProducesResponseType(typeof(int), (int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> CreateInvoice([FromBody]ViewModel.CreateInsuranceRequest request)
+        public async Task<IActionResult> CreateInsurance([FromBody]ViewModel.CreateInsuranceRequest request)
         {
             var insuranceId = await _insuranceService.CreateInsurance(request);
             return Created(HttpContext.Request.GetUri().AbsoluteUri, insuranceId);
+        }
+
+        /// <summary>
+        /// Deletes a new insurance.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <response code="200"></response>
+        [Route("delete")]
+        [HttpDelete]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> DeleteInsurance([FromBody]ViewModel.DeleteInsuranceRequest request)
+        {
+            await _insuranceService.DeleteInsurance(request);
+            return Ok();
         }
 
         /// <summary>

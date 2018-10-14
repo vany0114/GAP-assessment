@@ -1,13 +1,16 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using Gap.Domain.Customer.Persistence;
 using Gap.Domain.Customer.Repository;
 using Gap.Domain.Insurance.Persistence;
 using Gap.Domain.Insurance.Repository;
-using Gap.Insurance.API.Application.Validations;
+using Gap.Insurance.API.Infrastructure.AutofacModules;
+using Gap.Insurance.API.Infrastructure.Extensions;
 using Gap.Insurance.API.Infrastructure.Filters;
 using Gap.Insurance.API.Services;
 using Microsoft.AspNetCore.Builder;
@@ -30,7 +33,7 @@ namespace Gap.Insurance.API
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper();
 
@@ -93,9 +96,18 @@ namespace Gap.Insurance.API
                     });
             });
 
+            services.RegisterLazyTypes();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IInsuranceRepository, InsuranceRepository>();
             services.AddTransient<IInsuranceService, InsuranceService>();
+            services.AddTransient<ICustomerService, CustomerService>();
+
+            //configure autofac
+            var container = new ContainerBuilder();
+            container.Populate(services);
+            container.RegisterModule(new MediatorModule());
+
+            return new AutofacServiceProvider(container.Build());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

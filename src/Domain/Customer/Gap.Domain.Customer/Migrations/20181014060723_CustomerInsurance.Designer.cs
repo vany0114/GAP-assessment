@@ -12,15 +12,15 @@ using System;
 namespace Gap.Domain.Customer.Migrations
 {
     [DbContext(typeof(CustomerContext))]
-    partial class CustomerContextModelSnapshot : ModelSnapshot
+    [Migration("20181014060723_CustomerInsurance")]
+    partial class CustomerInsurance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("Relational:Sequence:Customer.customer_seq", "'customer_seq', 'Customer', '1', '10', '', '', 'Int64', 'False'")
-                .HasAnnotation("Relational:Sequence:Customer.customerinsurance_seq", "'customerinsurance_seq', 'Customer', '1', '10', '', '', 'Int64', 'False'")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Gap.Domain.Customer.Model.Customer", b =>
@@ -45,23 +45,13 @@ namespace Gap.Domain.Customer.Migrations
 
             modelBuilder.Entity("Gap.Domain.Customer.Model.CustomerInsurance", b =>
                 {
-                    b.Property<int>("CustomerInsuranceID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:HiLoSequenceName", "customerinsurance_seq")
-                        .HasAnnotation("SqlServer:HiLoSequenceSchema", "Customer")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.SequenceHiLo);
-
-                    b.Property<DateTime>("AssigningDate");
-
-                    b.Property<DateTime?>("CancellationDate");
+                    b.Property<int>("InsuranceId");
 
                     b.Property<int>("CustomerId");
 
-                    b.Property<int>("InsuranceId");
-
                     b.Property<int>("Status");
 
-                    b.HasKey("CustomerInsuranceID");
+                    b.HasKey("InsuranceId", "CustomerId");
 
                     b.HasIndex("CustomerId");
 

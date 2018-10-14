@@ -32,9 +32,10 @@ namespace Gap.Domain.Insurance.Repository
         public async Task<IList<Model.Insurance>> GetInsurancesAsync() =>
             await _context.Insurances.ToListAsync();
 
-        public void UpdateInsurance(Model.Insurance insurance)
-        {
+        public void UpdateInsurance(Model.Insurance insurance) => 
             _context.Entry(insurance).State = EntityState.Modified;
-        }
+
+        public void DeleteInsurance(Model.Insurance insurance) =>
+            _context.Entry(insurance).State = EntityState.Deleted;
     }
 }
