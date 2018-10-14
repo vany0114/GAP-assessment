@@ -30,10 +30,10 @@ namespace Gap.Domain.Insurance.Persistence
 
         private IEnumerable<Model.CoverageType> GetPreconfiguredCoverageTypes() => new List<Model.CoverageType>
         {
-            new Model.CoverageType("Earthquake", null),
-            new Model.CoverageType("Fire", null),
-            new Model.CoverageType("Stole", null),
-            new Model.CoverageType("Lost", null)
+            new Model.CoverageType(1, "Earthquake", null),
+            new Model.CoverageType(2, "Fire", null),
+            new Model.CoverageType(3, "Stole", null),
+            new Model.CoverageType(4, "Lost", null)
         };
     }
 }

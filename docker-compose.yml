@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  gap.insurance.api:
+    image: ${DOCKER_REGISTRY}gap/insurance.api
+    build:
+      context: .
+      dockerfile: src/Application/Gap.Insurance.API/Dockerfile
+    depends_on:
+      - sql.data
+
+  sql.data:
+    image: microsoft/mssql-server-linux:2017-latest

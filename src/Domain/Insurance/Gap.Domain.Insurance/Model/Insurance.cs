@@ -13,19 +13,29 @@ namespace Gap.Domain.Insurance.Model
         // but only through the method AddCoverage() which includes behaviour.
         private readonly List<InsuranceCoverage> _coverage;
 
-        public string Name { get; }
+        // EF doesn't support auto-properties readonly to run migrations
+        private double _cost;
+        private int _coveragePeriod;
+        private DateTime _creationDate;
+        private DateTime _startDate;
+        private string _description;
+        private string _name;
+        private RiskType _risk;
+        private int _customerId;
 
-        public string Description { get; }
+        public string Name => _name;
 
-        public DateTime StartDate { get; }
+        public string Description => _description;
 
-        public DateTime CreationDate { get; }
+        public DateTime StartDate => _startDate;
 
-        public int CoveragePeriod { get; }
+        public DateTime CreationDate => _creationDate;
 
-        public double Cost { get; }
+        public int CoveragePeriod => _coveragePeriod;
 
-        public RiskType Risk { get; }
+        public double Cost => _cost;
+
+        public RiskType Risk => _risk;
 
         // Using List<>.AsReadOnly() 
         // This will create a read only wrapper around the private list so is protected against "external updates".
@@ -33,7 +43,7 @@ namespace Gap.Domain.Insurance.Model
         //https://msdn.microsoft.com/en-us/library/e78dcd75(v=vs.110).aspx 
         public IReadOnlyCollection<InsuranceCoverage> Coverages => _coverage;
 
-        public int CustomerId { get; }
+        public int CustomerId => _customerId;
 
         protected Insurance()
         {
@@ -60,25 +70,30 @@ namespace Gap.Domain.Insurance.Model
             if (customerId == default(int))
                 throw new InsuranceDomainException($"{nameof(customerId)} is required.");
 
-            Name = name;
-            Description = description;
-            StartDate = start;
-            CoveragePeriod = coveragePeriod;
-            Cost = cost;
-            Risk = risk;
-            CustomerId = customerId;
-            CreationDate = DateTime.UtcNow;
+            _name = name;
+            _description = description;
+            _startDate = start;
+            _coveragePeriod = coveragePeriod;
+            _cost = cost;
+            _risk = risk;
+            _customerId = customerId;
+            _creationDate = DateTime.UtcNow;
         }
 
-        public void AddCoverage(int coverageId, int percentage)
+        public void AddCoverage(int coverageId, decimal percentage)
         {
+            var existingCoverage = _coverage.ToList().FirstOrDefault(x => x.CoverageId == coverageId);
+            if(existingCoverage != null)
+                throw new InsuranceDomainException($"The coverage {existingCoverage?.Coverage?.Name} is already assigned to this insurance.");
+
+            var percentageCoverage = Coverages.Sum(x => x.Percentage) + percentage;
+            if (percentageCoverage > 100)
+                throw new InsuranceDomainException("The percentage coverage can't be greater than 100%.");
+
             if (Risk == RiskType.High)
-            {
-                var percentageCoverage = Coverages.Sum(x => x.Percentage);
+            {                
                 if (percentageCoverage > 50)
-                {
-                    throw new InsuranceDomainException($"The percentage coverage can't be greater than 50% since the risk of this insurance is high.");
-                }
+                    throw new InsuranceDomainException("The percentage coverage can't be greater than 50% since the risk of this insurance is high.");
             }
 
             _coverage.Add(new InsuranceCoverage(coverageId, Id, percentage));

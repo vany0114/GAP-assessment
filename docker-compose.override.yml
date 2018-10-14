@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  gap.insurance.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionString=${AZURE_INSURANCE_DB:-Server=sql.data;Database=Gap.Insurance;User Id=sa;Password=Pass@word}
+    ports:
+      - "32880:80"
+
+  sql.data:
+    environment:
+      - MSSQL_SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Developer
+    ports:
+      - "5433:1433"

@@ -6,17 +6,23 @@ namespace Gap.Domain.Insurance.Model
     // this is an entity because it might exist a CRUD, for this example the values are created via ef seed.
     public class CoverageType : Entity
     {
-        public string Name { get; }
+        // EF doesn't support auto-properties readonly to run migrations
+        private string _name;
+        private string _description;
+        private List<InsuranceCoverage> _insuranceCoverages;
 
-        public string Description { get; }
+        public string Name => _name;
+
+        public string Description => _description;
 
         // ef navigation property
-        public List<InsuranceCoverage> InsuranceCoverages { get; }
+        public List<InsuranceCoverage> InsuranceCoverages => _insuranceCoverages;
 
-        internal CoverageType(string name, string description)
+        internal CoverageType(int id, string name, string description)
         {
-            Name = name;
-            Description = description;
+            Id = id;
+            _name = name;
+            _description = description;
         }
     }
 }
