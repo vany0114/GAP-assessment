@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Gap.Domain.Customer.UnitTest
 {
     [TestFixture]
-    public class Customer_Tests
+    public class CustomerSpecs
     {
         [Test]
         [Category("Creation")]

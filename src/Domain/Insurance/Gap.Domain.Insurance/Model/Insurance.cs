@@ -51,17 +51,15 @@ namespace Gap.Domain.Insurance.Model
         }
 
         public Insurance(string name, string description, DateTime start, int coveragePeriod, double cost, RiskType risk, int customerId)
+        : this()
         {
-            if(string.IsNullOrWhiteSpace(name))
-                throw  new InsuranceDomainException($"{nameof(name)} is required.");
-
             if (string.IsNullOrWhiteSpace(name))
-                throw new InsuranceDomainException($"{nameof(description)} is required.");
+                throw new InsuranceDomainException($"{nameof(name)} is required.");
 
-            if(start < DateTime.UtcNow)
+            if (start < DateTime.UtcNow)
                 throw new InsuranceDomainException("Invalid start date.");
 
-            if(coveragePeriod == default(int))
+            if (coveragePeriod == default(int))
                 throw new InsuranceDomainException("Invalid coverage period.");
 
             if (cost <= 0)
@@ -83,7 +81,7 @@ namespace Gap.Domain.Insurance.Model
         public void AddCoverage(int coverageId, decimal percentage)
         {
             var existingCoverage = _coverage.ToList().FirstOrDefault(x => x.CoverageId == coverageId);
-            if(existingCoverage != null)
+            if (existingCoverage != null)
                 throw new InsuranceDomainException($"The coverage {existingCoverage?.Coverage?.Name} is already assigned to this insurance.");
 
             var percentageCoverage = Coverages.Sum(x => x.Percentage) + percentage;
@@ -91,7 +89,7 @@ namespace Gap.Domain.Insurance.Model
                 throw new InsuranceDomainException("The percentage coverage can't be greater than 100%.");
 
             if (Risk == RiskType.High)
-            {                
+            {
                 if (percentageCoverage > 50)
                     throw new InsuranceDomainException("The percentage coverage can't be greater than 50% since the risk of this insurance is high.");
             }
