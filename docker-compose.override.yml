@@ -4,7 +4,10 @@ services:
   gap.insurance.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
       - ConnectionString=${AZURE_INSURANCE_DB:-Server=sql.data;Database=Gap.Insurance;User Id=sa;Password=Pass@word}
+      - identityUrl=http://gap.insurance.identity
+      - IdentityUrlExternal=http://${EXTERNAL_DNS_NAME_OR_IP}:32883
     ports:
       - "32880:80"
 
@@ -15,3 +18,15 @@ services:
       - MSSQL_PID=Developer
     ports:
       - "5433:1433"
+
+  gap.insurance.identity:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - ConnectionString=${AZURE_IDENTITY_DB:-Server=sql.data;Database=Gap.IdentityDb;User Id=sa;Password=Pass@word}
+      - MvcClient=http://${EXTERNAL_DNS_NAME_OR_IP}:32881
+      - SpaClient=http://${EXTERNAL_DNS_NAME_OR_IP}:32882
+      - InsuranceApiClient=http://${EXTERNAL_DNS_NAME_OR_IP}:32880
+    ports:
+      - "32883:80"
+

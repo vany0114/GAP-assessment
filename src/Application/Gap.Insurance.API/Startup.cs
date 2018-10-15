@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -15,7 +14,6 @@ using Gap.Insurance.API.Infrastructure.Filters;
 using Gap.Insurance.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,7 +40,6 @@ namespace Gap.Insurance.API
                     options.Filters.Add(typeof(HttpGlobalExceptionFilter));
                     options.Filters.Add(typeof(ValidatorActionFilter));
                 })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.AddOptions();
@@ -56,23 +53,8 @@ namespace Gap.Insurance.API
                         .AllowCredentials());
             });
 
-            // swagger configuration
-            services.AddSwaggerGen(options =>
-            {
-                options.DescribeAllEnumsAsStrings();
-                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
-                {
-                    Title = "Gap.Insurance HTTP API",
-                    Version = "v1",
-                    Description = "The GAP Insurance Service HTTP API",
-                    TermsOfService = "Terms Of Service"
-                });
-
-                // Set the comments path for the Swagger JSON and UI.
-                var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                options.IncludeXmlComments(xmlPath);
-            });
+            services.AddCustomAuthentication(Configuration);
+            services.AddCustomSwagger(Configuration);
 
             services.AddDbContext<CustomerContext>(options =>
             {
@@ -120,14 +102,18 @@ namespace Gap.Insurance.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.Map("/liveness", lapp => lapp.Run(async ctx => ctx.Response.StatusCode = 200));
+
             app.UseCors("CorsPolicy");
+            app.UseAuthentication();
             app.UseMvc();
 
             app.UseSwagger()
                 .UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gap.Insurance V1");
-                    c.RoutePrefix = string.Empty;
+                    c.OAuthClientId("insuranceswaggerui");
+                    c.OAuthAppName("Insurance Swagger UI");
                 });
         }
     }

@@ -3,12 +3,14 @@ using System.Threading.Tasks;
 using Gap.Insurance.API.Application.Exceptions;
 using Gap.Insurance.API.Services;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ViewModel = Gap.Insurance.API.Application.Model;
 
 namespace Gap.Insurance.API.Controllers
 {
     [Route("api/v1/[controller]")]
+    [Authorize]
     public class InsuranceController : Controller
     {
         private readonly IInsuranceService _insuranceService;

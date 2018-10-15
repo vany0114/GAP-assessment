@@ -8,6 +8,14 @@ services:
       dockerfile: src/Application/Gap.Insurance.API/Dockerfile
     depends_on:
       - sql.data
+      - gap.insurance.identity
 
   sql.data:
     image: microsoft/mssql-server-linux:2017-latest
+
+  gap.insurance.identity:
+    image: ${DOCKER_REGISTRY}gap/insurance.identity
+    build:
+      context: .
+      dockerfile: src/Application/Gap.Insurance.Identity/Dockerfile
+
