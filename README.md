@@ -10,7 +10,7 @@
 |---|---|---|
 | tcp:127.0.0.1,5433  | sa  | Pass@word  |
 
-* IdentityDB: Database=Gap.IdentityDb
+* IdentityDB: Gap.IdentityDb
 * ApiDB: Gap.Insurance
 * Default user/password: demouser@microsoft.com/Pass@word1
 
