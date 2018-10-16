@@ -7,8 +7,8 @@
 1. Install [Docker for Windows](https://docs.docker.com/docker-for-windows/install/).
 2. Install [.NET Core 2.1](https://www.microsoft.com/net/download)
 3. Install [Visual Studio 2017 15.7 or newer](https://docs.microsoft.com/en-us/visualstudio/install/update-visual-studio?view=vs-2017)
-4. [Share drives in Docker settings, in order to deploy and debug with Visual Studio 2017 (See the below picture)](#Tuning-Docker-for-better-performance)
-5. [Configure firewall](Configuring-the-Firewall)
+4. [Share drives in Docker settings, in order to deploy and debug with Visual Studio 2017 (See the below picture)](#tuning-docker-for-better-performance)
+5. [Configure firewall](#configuring-the-firewall)
 6. Press F5 and that's it!
 
 ![](https://github.com/vany0114/vany0114.github.io/blob/master/images/docker_settings_shared_drives.png)
@@ -23,7 +23,7 @@ It is important to set Docker up properly with enough memory RAM and CPU assigne
 
 ### Configuring the Firewall
 
-IMPORTANT: Authentication to the STS (Security Token Service container) uses the 10.0.75.1 IP which should be available and already setup by Docker, so you need to set windows firewall to not protect DockerNAT (this is only required to execute locally with Docker):
+IMPORTANT: Authentication to the STS (Security Token Service container) uses the 10.0.75.1 IP which should be available and already setup by Docker, so you need to set windows firewall to not protect DockerNAT or merely disable the firewall (this is only required to execute locally with Docker):
 
 ![](https://user-images.githubusercontent.com/5191049/36141845-8fa45666-10a6-11e8-9be0-0ec82747b445.png)
 
