@@ -31,17 +31,5 @@ namespace Gap.Insurance.Web.Controllers
         {
             return View();
         }
-
-        [AllowAnonymous]
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            var feature = this.HttpContext.Features.Get<IExceptionHandlerFeature>();
-            return View(new ErrorViewModel
-            {
-                Exception = feature?.Error,
-                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
-            });
-        }
     }
 }

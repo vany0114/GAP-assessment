@@ -1,8 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
-using System.Net;
 using Gap.Insurance.Web.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -23,13 +21,6 @@ namespace Gap.Insurance.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-
             services.AddCustomMvc(Configuration)
                 .AddHttpClientServices(Configuration)
                 .AddCustomAuthentication(Configuration);
@@ -40,15 +31,7 @@ namespace Gap.Insurance.Web
         {
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-            }
-
+            app.UseExceptionHandler("/Error");
             app.Map("/liveness", lapp => lapp.Run(async ctx => ctx.Response.StatusCode = 200));
 
             app.UseSession();

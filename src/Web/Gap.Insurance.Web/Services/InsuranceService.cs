@@ -31,6 +31,7 @@ namespace Gap.Insurance.Web.Services
         {
             var uri = API.Insurance.GetAllInsurance(_settings.Value.InsuranceUrl);
             var response = await _apiClient.GetAsync(uri);
+            await EnsureDomainException(response);
 
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return new List<ViewModels.Insurance>();
@@ -48,11 +49,7 @@ namespace Gap.Insurance.Web.Services
             };
 
             var response = await _apiClient.SendAsync(request);
-            if (response.StatusCode == HttpStatusCode.BadRequest)
-            {
-                response.EnsureDomainException();
-            }
-
+            await EnsureDomainException(response);
             response.EnsureSuccessStatusCode();
         }
 
@@ -62,12 +59,18 @@ namespace Gap.Insurance.Web.Services
             var orderContent = new StringContent(JsonConvert.SerializeObject(insurance), Encoding.UTF8, "application/json");
 
             var response = await _apiClient.PostAsync(uri, orderContent);
-            if (response.StatusCode == HttpStatusCode.BadRequest)
-            {
-                response.EnsureDomainException();
-            }
+            await EnsureDomainException(response);
 
             response.EnsureSuccessStatusCode();
+        }
+
+        private async Task EnsureDomainException(HttpResponseMessage response)
+        {
+            var ex = await response.EnsureDomainException();
+            if (ex != null)
+            {
+                throw ex;
+            }
         }
     }
 }

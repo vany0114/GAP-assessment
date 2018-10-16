@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Gap.Domain.Insurance.Model;
 using Microsoft.Extensions.Logging;
 
 namespace Gap.Domain.Insurance.Persistence
@@ -19,6 +20,12 @@ namespace Gap.Domain.Insurance.Persistence
                         context.CoverageTypes.AddRange(GetPreconfiguredCoverageTypes());
                         await context.SaveChangesAsync();
                     }
+
+                    if (!context.Insurances.Any())
+                    {
+                        context.Insurances.AddRange(GetPreconfiguredInsurances());
+                        await context.SaveChangesAsync();
+                    }
                 }
             }
             catch (Exception ex)
@@ -28,12 +35,19 @@ namespace Gap.Domain.Insurance.Persistence
             }
         }
 
-        private IEnumerable<Model.CoverageType> GetPreconfiguredCoverageTypes() => new List<Model.CoverageType>
+        private IEnumerable<CoverageType> GetPreconfiguredCoverageTypes() => new List<CoverageType>
         {
-            new Model.CoverageType(1, "Earthquake", null),
-            new Model.CoverageType(2, "Fire", null),
-            new Model.CoverageType(3, "Stole", null),
-            new Model.CoverageType(4, "Lost", null)
+            new CoverageType(1, "Earthquake", null),
+            new CoverageType(2, "Fire", null),
+            new CoverageType(3, "Stole", null),
+            new CoverageType(4, "Lost", null)
+        };
+
+        private IEnumerable<Model.Insurance> GetPreconfiguredInsurances() => new List<Model.Insurance>
+        {
+            new Model.Insurance("Insurance 1", null, DateTime.Now.AddDays(5), 5, 1500000, RiskType.MediumHigh),
+            new Model.Insurance("Insurance 2", null, DateTime.Now.AddMonths(2), 5, 5000000, RiskType.Low),
+            new Model.Insurance("Insurance 3", null, DateTime.Now.AddDays(5), 5, 1500000, RiskType.High)
         };
     }
 }
