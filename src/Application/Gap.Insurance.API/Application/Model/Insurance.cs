@@ -26,7 +26,7 @@ namespace Gap.Insurance.API.Application.Model
 
     public class InsuranceCoverage
     {
-        public CoverageType CoverageType { get; set; }
+        public CoverageType Coverage { get; set; }
 
         public decimal Percentage { get; set; }
     }

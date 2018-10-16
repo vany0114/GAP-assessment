@@ -1,0 +1,76 @@
+﻿@model Gap.Insurance.Web.ViewModels.Insurance
+@{
+    ViewData["Title"] = "New Insurance";
+}
+
+<h2>Create Insurance</h2>
+
+<div class="container">
+    <form method="post" asp-controller="Insurance" asp-action="Create">
+        <section>
+            <div class="row">
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(err => err.Errors)) {
+                    <div class="alert alert-warning" role="alert">                    
+                        &nbsp;@error.ErrorMessage
+                    </div>
+                }
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Name" class="label">Name</label>
+                        <input asp-for="Name" class="form-control form-input" type="text" placeholder="Name"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Description" class="label">Description</label>
+                        <input asp-for="Description" class="form-control form-input" type="text" placeholder="Description"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="StartDate" class="label">Start Date</label>
+                        <input asp-for="StartDate" class="form-control form-input" type="date" placeholder="Start Date"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="CoveragePeriod" class="label">Coverage Period</label>
+                        <input asp-for="CoveragePeriod" class="form-control form-input" type="number" placeholder="Coverage Period"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Cost" class="label">Cost</label>
+                        <input asp-for="Cost" class="form-control form-input" type="number" placeholder="Cost"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Risk" class="label">Risk</label>
+                        <select asp-for="Risk" class="form-control form-input" asp-items="Model.Risks" placeholder="Cost">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <input type="submit" value="[ Save ]" name="action" class="btn btn-primary" />
+                </div>
+            </div>
+        </section>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

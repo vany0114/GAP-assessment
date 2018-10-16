@@ -1,0 +1,78 @@
+﻿@model List<Gap.Insurance.Web.ViewModels.Insurance>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Insurances</h2>
+
+<div class="container">
+    <a asp-controller="Insurance" asp-action="New" class="btn btn-primary">New Insurance</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Start Date
+                </th>
+                <th>
+                    Creation Date
+                </th>
+                <th>
+                    Coverage Period
+                </th>
+                <th>
+                    Cost
+                </th>
+                <th>
+                    Risk
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @for (var i = 0; i < Model.Count(); i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => m[i].Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m[i].Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m[i].StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m[i].CreationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m[i].CoveragePeriod)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m[i].Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m[i].Risk)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = Model[i].Id })
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { id = Model[i].Id })
+                </td>
+                <td>
+                    @Html.ActionLink("Coverage", "Coverage", new { id = Model[i].Id })
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

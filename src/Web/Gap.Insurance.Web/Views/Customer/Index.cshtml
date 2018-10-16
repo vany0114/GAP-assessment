@@ -1,0 +1,60 @@
+﻿@model List<Gap.Insurance.Web.ViewModels.Customer>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Customers</h2>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Phone Number
+            </th>
+            <th>
+                Active Insurances
+            </th>
+            <th>
+                Cancelled Insurances
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @for (var i = 0; i < Model.Count(); i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => m[i].Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m[i].Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m[i].PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m[i].ActiveInsurances)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m[i].CancelledInsurances)
+                </td>
+                <td>
+                    @Html.ActionLink("Assign Insurance", "Assignment", new {id = Model[i].Id})
+                </td>
+                <td>
+                    @Html.ActionLink("Cancel Insurance", "Cancellation", new {id = Model[i].Id})
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

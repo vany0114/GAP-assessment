@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using Gap.Domain.Insurance.Repository;
 using Gap.Insurance.API.Application.Exceptions;
@@ -23,6 +24,13 @@ namespace Gap.Insurance.API.Services
             var insuranceViewModel = _mapper.Map<ViewModel.Insurance>(insurance);
 
             return insuranceViewModel;
+        }
+
+        public async Task<IList<ViewModel.Insurance>> GetInsurancesAsync()
+        {
+            var insurances = await _insuranceRepository.GetInsurancesAsync();
+            var insurancesViewModel = _mapper.Map<List<ViewModel.Insurance>>(insurances);
+            return insurancesViewModel;
         }
 
         public async Task<int> CreateInsurance(ViewModel.CreateInsuranceRequest insuranceRequest)

@@ -112,7 +112,7 @@ namespace Gap.Insurance.API
                 .UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gap.Insurance V1");
-                    c.OAuthClientId("insuranceswaggerui");
+                    c.OAuthClientId("insurance-swagger-ui");
                     c.OAuthAppName("Insurance Swagger UI");
                 });
         }

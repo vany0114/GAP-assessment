@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using IdentityServer4;
 using IdentityServer4.Models;
 
 namespace Gap.Insurance.Identity.Configuration
@@ -31,7 +32,7 @@ namespace Gap.Insurance.Identity.Configuration
             {
                 new Client
                 {
-                    ClientId = "insuranceswaggerui",
+                    ClientId = "insurance-swagger-ui",
                     ClientName = "Insurance Swagger UI",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
@@ -43,7 +44,38 @@ namespace Gap.Insurance.Identity.Configuration
                     {
                         "insurance"
                     }
-                }
+                },
+                new Client
+                {
+                    ClientId = "mvc",
+                    ClientName = "MVC Client",
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                    ClientUri = $"{clientsUrl["Mvc"]}",                             
+                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    AllowAccessTokensViaBrowser = false,
+                    RequireConsent = false,
+                    AllowOfflineAccess = true,
+                    AlwaysIncludeUserClaimsInIdToken = true,
+                    AccessTokenLifetime = 3600,
+                    RedirectUris = new List<string>
+                    {
+                        $"{clientsUrl["Mvc"]}/signin-oidc"
+                    },
+                    PostLogoutRedirectUris = new List<string>
+                    {
+                        $"{clientsUrl["Mvc"]}/signout-callback-oidc"
+                    },
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                        "insurance"
+                    },
+                },
             };
         }
     }

@@ -2,12 +2,11 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using Gap.Insurance.API.Infrastructure.Filters;
-using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Reflection;
+using System.IO;
 
 namespace Gap.Insurance.API.Infrastructure.Extensions
 {
@@ -43,6 +42,11 @@ namespace Gap.Insurance.API.Infrastructure.Extensions
                 });
 
                 options.OperationFilter<AuthorizeCheckOperationFilter>();
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
             });
 
             return services;

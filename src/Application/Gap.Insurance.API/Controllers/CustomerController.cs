@@ -25,7 +25,6 @@ namespace Gap.Insurance.API.Controllers
         /// </summary>
         /// <returns>Returns all of the customers</returns>
         /// <response code="200">Returns a list of Customer object.</response>
-        [Route("get")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ViewModel.Customer>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -44,18 +43,17 @@ namespace Gap.Insurance.API.Controllers
         /// <summary>
         /// Returns a customer that matches with the specified id
         /// </summary>
-        /// <param name="customerId"></param>
+        /// <param name="id"></param>
         /// <returns>Returns a customer that matches with the specified id</returns>
         /// <response code="200">Returns a Customer object that matches with the specified id</response>
-        [Route("getbyid")]
-        [HttpGet]
+        [HttpGet("{id:int}")]
         [ProducesResponseType(typeof(ViewModel.Customer), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> GetCustomer(int customerId)
+        public async Task<IActionResult> GetCustomer(int id)
         {
-            var customer = await _customerService.GetCustomerAsync(customerId);
+            var customer = await _customerService.GetCustomerAsync(id);
 
             if (customer == null)
                 return NotFound();
@@ -68,7 +66,6 @@ namespace Gap.Insurance.API.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <response code="200"></response>
-        [Route("assigninsurance")]
         [HttpPut]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -84,8 +81,7 @@ namespace Gap.Insurance.API.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <response code="200"></response>
-        [Route("cancelinsurance")]
-        [HttpPut]
+        [HttpDelete]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]

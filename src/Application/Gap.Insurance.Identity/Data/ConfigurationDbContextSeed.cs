@@ -12,11 +12,11 @@ namespace Gap.Insurance.Identity.Data
     {
         public async Task SeedAsync(ConfigurationDbContext context, IConfiguration configuration)
         {
-
             //callbacks urls from config:
             var clientUrls = new Dictionary<string, string>
             {
-                { "InsuranceApi", configuration.GetValue<string>("InsuranceApiClient") }
+                { "InsuranceApi", configuration.GetValue<string>("InsuranceApiClient") },
+                { "Mvc", configuration.GetValue<string>("MvcClient") }
             };
 
             if (!context.Clients.Any())

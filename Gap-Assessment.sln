@@ -39,6 +39,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gap.Insurance.Identity", "src\Application\Gap.Insurance.Identity\Gap.Insurance.Identity.csproj", "{6151ED9A-B600-4A08-8491-AB2BAE049527}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gap.Insurance.Web", "src\Web\Gap.Insurance.Web\Gap.Insurance.Web.csproj", "{9E610460-F1C7-4851-99EE-E55F5D02734F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{6151ED9A-B600-4A08-8491-AB2BAE049527}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6151ED9A-B600-4A08-8491-AB2BAE049527}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6151ED9A-B600-4A08-8491-AB2BAE049527}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E610460-F1C7-4851-99EE-E55F5D02734F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E610460-F1C7-4851-99EE-E55F5D02734F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E610460-F1C7-4851-99EE-E55F5D02734F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E610460-F1C7-4851-99EE-E55F5D02734F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -102,6 +108,7 @@ Global
 		{71A20B4E-EB1D-425C-95D0-595145835EFC} = {E1679C7A-C5DD-4F51-806D-C5A5B7EEADB6}
 		{04710AA1-FE17-4812-A52C-316E19068E75} = {2E908EB0-8010-4DFD-8509-556644EF14FB}
 		{6151ED9A-B600-4A08-8491-AB2BAE049527} = {A5ECA289-367F-4D81-B37A-EBA50FEAB1EA}
+		{9E610460-F1C7-4851-99EE-E55F5D02734F} = {61AED49F-219C-45D6-8C20-BF79E4940F2A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3E46BAC1-AD9D-4164-BBAB-83DBE7F59FCF}

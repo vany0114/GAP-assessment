@@ -5,8 +5,8 @@
     <DockerTargetOS>Linux</DockerTargetOS>
     <ProjectGuid>ffd7548b-7b6b-4cb5-a881-00d4794460cb</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-    <DockerServiceName>gap.insurance.api</DockerServiceName>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/home</DockerServiceUrl>
+    <DockerServiceName>gap.insurance.web</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">

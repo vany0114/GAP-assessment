@@ -1,0 +1,56 @@
+﻿@model Gap.Insurance.Web.ViewModels.Assignment
+@{
+    ViewData["Title"] = "Assign";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cancel Insurance</h2>
+
+<div class="container">
+    <form method="post" asp-controller="Customer" asp-action="Cancel">
+        <section>
+            <div class="row">
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(err => err.Errors))
+                {
+                    <div class="alert alert-warning" role="alert">
+                        &nbsp;@error.ErrorMessage
+                    </div>
+                }
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <h3>
+                            @Model.Customer.Name
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="InsuranceId" class="label">Insurance</label>
+                        <select asp-for="InsuranceId" class="form-control form-input" asp-items="Model.Insurances" placeholder="Cost"></select>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <input type="submit" value="[ Cancel ]" name="action" class="btn btn-primary" />
+                </div>
+            </div>
+        </section>
+
+        <input asp-for="CustomerId" value="@Model.Customer.Id" type="hidden" />
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+

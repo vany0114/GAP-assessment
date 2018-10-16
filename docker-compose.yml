@@ -18,4 +18,14 @@ services:
     build:
       context: .
       dockerfile: src/Application/Gap.Insurance.Identity/Dockerfile
+    depends_on:
+      - sql.data
+
+  gap.insurance.web:
+    image: ${DOCKER_REGISTRY}gap/insurance.web
+    build:
+      context: .
+      dockerfile: src/Web/Gap.Insurance.Web/Dockerfile
+    depends_on:
+      - gap.insurance.api
 
