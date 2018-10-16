@@ -1,7 +1,18 @@
 # GAP-assessment
+
+## Resources and credentials
 * Api: http://localhost:32880/swagger
 * Website: http://localhost:32881
 * Identity server: http://localhost:32883
+* Sql Server:
+
+| Ip  | User  | Password  |
+|---|---|---|
+| tcp:127.0.0.1,5433  | sa  | Pass@word  |
+
+* IdentityDB: Database=Gap.IdentityDb
+* ApiDB: Gap.Insurance
+* Default user/password: demouser@microsoft.com/Pass@word1
 
 ## Prerequisites and Installation Requirements
 1. Install [Docker for Windows](https://docs.docker.com/docker-for-windows/install/).
@@ -28,9 +39,15 @@ IMPORTANT: Authentication to the STS (Security Token Service container) uses the
 ![](https://user-images.githubusercontent.com/5191049/36141845-8fa45666-10a6-11e8-9be0-0ec82747b445.png)
 
 ### Demo Screenshots
-#### Website
-![](https://github.com/vany0114/vany0114.github.io/blob/master/images/duber-in-action.gif)
-#### Trip API
-![](https://github.com/vany0114/vany0114.github.io/blob/master/images/duber-trip-api.png)
-#### Invoice API
-![](https://github.com/vany0114/vany0114.github.io/blob/master/images/duber-invoice-api.png)
+#### Api
+![](https://github.com/vany0114/GAP-assessment/blob/master/Screenshots/api.png)
+#### Api concent
+![](https://github.com/vany0114/GAP-assessment/blob/master/Screenshots/api-consent.png)
+#### Identity server
+![](https://github.com/vany0114/GAP-assessment/blob/master/Screenshots/identityServer.png)
+#### Identity login
+![](https://github.com/vany0114/GAP-assessment/blob/master/Screenshots/identity-login.png)
+#### Web-customers
+![](https://github.com/vany0114/GAP-assessment/blob/master/Screenshots/web-customers.png)
+#### Web-insurances
+![](https://github.com/vany0114/GAP-assessment/blob/master/Screenshots/web-insurances.png)
